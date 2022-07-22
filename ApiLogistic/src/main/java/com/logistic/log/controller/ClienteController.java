@@ -20,9 +20,11 @@ import com.logistic.log.model.Cliente;
 import com.logistic.log.repository.ClienteRepository;
 import com.logistic.log.service.ClienteService;
 
+import lombok.AllArgsConstructor;
 
 
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/clientes")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -30,6 +32,7 @@ public class ClienteController {
 	
 	
 	private ClienteRepository clienteRepository;
+	
 	private ClienteService clienteService;
 	
 	@GetMapping
@@ -37,7 +40,7 @@ public class ClienteController {
 		return clienteRepository.findAll();
 	}
 	
-	@GetMapping("/{clienteid}")
+	@GetMapping("/{clienteId}")
 	public ResponseEntity<Cliente> buscar (@PathVariable Long clienteId){
 		return clienteRepository.findById(clienteId)
 				.map(ResponseEntity::ok) // <-- método reference
@@ -51,8 +54,8 @@ public class ClienteController {
 		
 	}
 	
-	@PutMapping("{clienteid}")
-	public ResponseEntity<Cliente> Atualizar (@PathVariable @Valid @RequestBody Long clienteId, Cliente cliente){
+	@PutMapping("/{clienteId}")
+	public ResponseEntity<Cliente> Atualizar (@PathVariable @Valid Long clienteId,@RequestBody  Cliente cliente){
 		
 		if(!clienteRepository.existsById(clienteId)) {
 			return ResponseEntity.notFound().build();
