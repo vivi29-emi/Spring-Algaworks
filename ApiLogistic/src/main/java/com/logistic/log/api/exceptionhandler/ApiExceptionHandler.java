@@ -4,7 +4,7 @@ package com.logistic.log.api.exceptionhandler;
 
 
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.logistic.log.exception.ExceptionEntidadeNaoEncontrada;
 import com.logistic.log.service.NegocioException;
 
 import lombok.AllArgsConstructor;
@@ -47,7 +48,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler { //<- C
 		
 		Problem problem = new Problem();
 		problem.setStatus(status.value());
-		problem.setDataHora(LocalDateTime.now());
+		problem.setDataHora(OffsetDateTime.now());
 		problem.setTitulo("Um ou mais campos estiverem inválidos, faça o preenchimento correto e tente novamente.");
 		problem.setCampos(campos);
 		
@@ -57,13 +58,28 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler { //<- C
 		
 	}
 	
+	// Caso o id não existe no recurso da url retorna a exception 404
+	@ExceptionHandler(ExceptionEntidadeNaoEncontrada.class)
+	public ResponseEntity<Object>handleEntidadeNaoEncontrada(ExceptionEntidadeNaoEncontrada ex, WebRequest request){
+		HttpStatus status = HttpStatus.NOT_FOUND;
+		
+		Problem problem = new Problem();
+		problem.setStatus(status.value());
+		problem.setDataHora(OffsetDateTime.now());
+		problem.setTitulo(ex.getMessage());
+		
+		
+		return handleExceptionInternal(ex,problem,new HttpHeaders(),status,request);
+		
+	}
+	
 	@ExceptionHandler(NegocioException.class)
 	public ResponseEntity<Object>handlerNegocio(NegocioException ex, WebRequest request){
 		HttpStatus status = HttpStatus.BAD_REQUEST;
 		
 		Problem problem = new Problem();
 		problem.setStatus(status.value());
-		problem.setDataHora(LocalDateTime.now());
+		problem.setDataHora(OffsetDateTime.now());
 		problem.setTitulo(ex.getMessage());
 		
 		
