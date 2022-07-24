@@ -15,7 +15,14 @@ public class ClienteService {
 	
 	private ClienteRepository clienteRepository;
 	
-	/*a anotação declara que o metodo abaixo tem que ser feito dentro dessa transaçoes, 
+	public Cliente buscar(Long clienteId) {
+		
+		return clienteRepository.findById(clienteId)
+			  .orElseThrow(() -> new NegocioException("Cliente não encontrado"));//<- vai pegar o que está dentro do optional e será atribuido a variavel cliente e se tiver vasio será informado a mensagem no body.
+	}
+	
+	
+	/*a anotação abaixo declara que o metodo abaixo tem que ser feito dentro dessa transaçoes, 
 	caso algo que estiver fazendo dentro da transação der errado todas as transaçoes que estiver
 	dentro do DB será descartada.*/
 	
