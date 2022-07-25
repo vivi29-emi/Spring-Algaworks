@@ -15,20 +15,16 @@ import lombok.AllArgsConstructor;
 @Service
 public class RegistroOcorrencService {
 	
-	private EntregaRepository entregaRepository;
+	private BuscaEntregaService buscaEntregaService;
 	
-	// metodo que verifica se a entrega existe ou não, caso não retorna a mensagem no body
+	// metodo que verifica se a entrega existe ou não, caso não ,retorna a mensagem no body, caso sim , adiciona o registro
    @Transactional
 	public Ocorrencia registrar(Long entregaId, String descricao) {
-		Entrega entrega = entregaRepository.findById(entregaId)
-				.orElseThrow(() -> new NegocioException("Entrega não encontrada"));
+		Entrega entrega = buscaEntregaService.buscar(entregaId);
+				
 		
 		return entrega.adicionarOcorrencia(descricao);//<-- caso a entrega existir retorna a descrição no body
 		 
 	}
-   // busca o id da entrega se existir 
-   public Entrega busca(Long entregaId) {
-	   return entregaRepository.findById(entregaId)
-			   .orElseThrow(()-> new ExceptionEntidadeNaoEncontrada("Entrega não encontrada"));
-   }
+   
 }
