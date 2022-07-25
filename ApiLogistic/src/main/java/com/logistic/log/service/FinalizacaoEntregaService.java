@@ -13,10 +13,10 @@ import lombok.AllArgsConstructor;
 public class FinalizacaoEntregaService {
 	
 	private EntregaRepository entregaRepository;
-	private RegistroOcorrencService registroOcorrencService; 
+	private BuscaEntregaService buscaEntregaService;
 	
 	public void finalizar (Long entregaId) {
-		Entrega entrega = registroOcorrencService.busca(entregaId);
+		Entrega entrega = buscaEntregaService.buscar(entregaId);
 		
 		if (!entrega.getStatus().equals(StatusEntrega.PENDENTE)) {
 			throw new NegocioException("Entrega não pode ser finalizada");
