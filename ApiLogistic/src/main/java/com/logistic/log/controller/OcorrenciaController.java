@@ -18,6 +18,7 @@ import com.logistic.log.api.assembler.OcorrenciaAssembler;
 import com.logistic.log.model.Entrega;
 import com.logistic.log.model.Ocorrencia;
 import com.logistic.log.model.request.OcorrenciaRequest;
+import com.logistic.log.service.BuscaEntregaService;
 import com.logistic.log.service.RegistroOcorrencService;
 
 import lombok.AllArgsConstructor;
@@ -28,6 +29,7 @@ import lombok.AllArgsConstructor;
 @RequestMapping("entregas/{entregaId}/ocorrencias")
 public class OcorrenciaController {
 	
+	private BuscaEntregaService buscaEntregaService;
     private RegistroOcorrencService registroOcorrenciaService;
     private OcorrenciaAssembler ocorrenciaAssembler;
    
@@ -45,7 +47,7 @@ public class OcorrenciaController {
 	
 	@GetMapping
 	public List<OcorrenciaDto>listar(@PathVariable Long entregaId){
-		Entrega entrega = registroOcorrenciaService.busca(entregaId);
+		Entrega entrega = buscaEntregaService.buscar(entregaId);
 		
 		return ocorrenciaAssembler.toCollectionModel(entrega.getOcorrencias());
 		
