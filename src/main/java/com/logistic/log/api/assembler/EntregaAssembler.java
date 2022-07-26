@@ -12,6 +12,8 @@ import com.logistic.log.model.request.EntregaRequest;
 
 import lombok.AllArgsConstructor;
 
+
+// class que faz o mapeamento dos objetos convertendo de um tipo para outro , implementado para não ficar dependente da biblioteca modelMapper
 @AllArgsConstructor
 @Component
 public class EntregaAssembler {
