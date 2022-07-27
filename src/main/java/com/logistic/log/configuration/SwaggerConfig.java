@@ -3,6 +3,7 @@ package com.logistic.log.configuration;
 
 import org.springdoc.core.customizers.OpenApiCustomiser;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -12,26 +13,27 @@ import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.responses.ApiResponse;
 import io.swagger.v3.oas.models.responses.ApiResponses;
 
+@Configuration
 public class SwaggerConfig {
 
 	@Bean
-	public OpenAPI springBlogPessoalOpenAPI() {
+	public OpenAPI springApiLogisticOpenAPI() {
 		
 		 return new OpenAPI()
 					.info(new Info()
-						.title("Api logistica")
+						.title("Api logistic")
 						.description(" Api de logistica entrega de produtos")
 						.version("v0.0.1")
 					.license(new License()
 						.name("Api Logistica")
-						.url(""))
+						.url("https://apilogistic.herokuapp.com"))
 					.contact(new Contact()
 						.name("Viviane Emilie")
-						.url("https://github.com/vivi29-emi")
+						.url("https://apilogistic.herokuapp.com")
 						.email("vivi29emi@gmail.com")))
 					.externalDocs(new ExternalDocumentation()
 						.description("Api Logistica")
-						.url("https://github.com/vivi29-emi/Blog_pessoal"));
+						.url("https://github.com/vivi29-emi/Spring-Algaworks"));
 	}
 	
 	@Bean
