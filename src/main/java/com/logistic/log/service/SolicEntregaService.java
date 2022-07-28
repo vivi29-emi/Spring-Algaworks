@@ -29,6 +29,7 @@ public class SolicEntregaService {
 		entrega.setStatus(StatusEntrega.PENDENTE);
 		entrega.setDataPedido(OffsetDateTime.now());
 		
+		
 		return entregaRepository.save(entrega);
 		
 	}
