@@ -1,5 +1,7 @@
 package com.logistic.log.service;
 
+import java.time.OffsetDateTime;
+
 import org.springframework.stereotype.Service;
 
 import com.logistic.log.model.Entrega;
@@ -24,6 +26,7 @@ public class FinalizacaoEntregaService {
 		}
 		
 		entrega.setStatus(StatusEntrega.FINALIZADA);
+		entrega.setDataFinalização(OffsetDateTime.now());
 		
 		entregaRepository.save(entrega);
 		
