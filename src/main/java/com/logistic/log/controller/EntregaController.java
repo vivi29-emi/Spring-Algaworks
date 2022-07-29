@@ -57,7 +57,7 @@ public class EntregaController {
 	
 	@GetMapping
 	public List<EntregaDto>listar(){
-		return entregaAssembler.toCllectionModel(entregaRepository.findAll());
+		return entregaAssembler.toCollectionModel(entregaRepository.findAll());
 	}
 	
 	@GetMapping("/{entregaId}")
